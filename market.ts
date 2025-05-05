@@ -1,0 +1,3 @@
+class Market{
+    id:number
+}
