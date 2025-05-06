@@ -1,28 +1,36 @@
-class Article{
-    private id:number;
-    private name:string;
-    private desc:string;
+export class Article{ 
+    //attributs privées de la classe article
+    private id: number;
+    private name: string;
+    private desc: string;
     private price: number;
 
-    constructor(id:number,name : string,desc : string, price:number){
+    //constructeur 
+    constructor(id: number, name: string, desc: string, price: number){
         this.id = id;
         this.name = name;
         this.desc = desc;
         this.price = price;
     }
-    public getId(){
+
+    //getter
+    public getId(): number{
         return this.id;
     }
-    public getName(){
+    
+    public getName(): string{
         return this.name;
     }
-    public getDesc(){
+
+    public getDesc(): string{
         return this.desc;
     }
-    public getPrice(){
+
+    public getPrice(): number{
         return this.price;
     }
 
+    //setter
     public setName(newName: string): void {
         this.name = newName;
     }
