@@ -1,7 +1,7 @@
 import { Article } from "./article";
 
 export class Rayon {
-    //attibuts privés
+  //attibuts privés
   private id: number;
   private name: string;
   private articles: Article[];
@@ -36,27 +36,48 @@ export class Rayon {
   }
   //methode qui ajoute un article dans le tableau
   public addArticle(article: Article): void {
-    this.articles.push(article);
+    //si article existe deja, on ajoute pas
+    let article_existant = false;
+    try {
+      for (let i = 0; i < this.count(); i++) {
+        if (this.articles[i].getName() === article.getName()) {
+          article_existant = true;
+        }
+      }
+      if (!article_existant) {
+        this.articles.push(article);
+      }
+      else{
+        throw new Error(
+            "Erreur: L'article n'a pas été trouvé !"
+        );
+      }
+    } catch (e) {
+      console.error(e.message);
+    }
   }
   //methode qui supprime un article du tableau à partir de son nom
   public removeArticleByName(name: string): void {
+    let nomtrouve = false;
     //savoir si name est dans l'array article
     try {
       if (this.count() != 0) {
-        for (let i = 0; i < this.count(); i++) {
-          //si name est dans l'array article alors on
-          try {
+        try {
+          for (let i = 0; i < this.count(); i++) {
+            //si name est dans l'array article alors on
             if (this.articles[i].getName() === name) {
               //supprime la valeur name du array article
               this.articles.splice(i, 1);
-            } else {
-              throw new Error(
-                "Erreur: L'article " + name + " n'a pas été trouvé !"
-              );
+              nomtrouve = true;
             }
-          } catch (e) {
-            console.error(e.message);
           }
+          if (!nomtrouve) {
+            throw new Error(
+              "Erreur: L'article " + name + " n'a pas été trouvé !"
+            );
+          }
+        } catch (e) {
+          console.error(e.message);
         }
       } else {
         throw new Error("Erreur: Il n'y a aucun article dans le rayon !");
